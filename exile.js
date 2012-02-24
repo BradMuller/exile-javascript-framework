@@ -132,16 +132,10 @@
         },
 
         /**
-         * Tentativas de carregar plugins, não devem ser repetidas
-         */
-        _loadAttempts:{},
-
-        /**
          * Tenta carregar o plugin dado
          * @param name Nome do plugin
          */
         loadPlugin:function (name) {
-            this._loadAttempts[name] = true;
             var s = window.document.createElement('script');
             s.src = this.getPluginPath(name);
             // Adicionamos como próximo elemento a ser interpretado
@@ -201,7 +195,7 @@
                 }
             }
         }
-    }
+    };
 
     EventsComponent.prototype = {
 
@@ -212,7 +206,7 @@
         /**
          * Vetor com os eventos definidos por este componente.
          **/
-        //events: {},
+        ev: {},
 
         /**
          * Objeto colecionador de observadores de eventos.
@@ -282,7 +276,7 @@
                     }
                 }
         }
-    }
+    };
 
     Plugin.prototype = {
 
@@ -777,7 +771,7 @@
      */
     Date.getToday = function () {
         return new Date();
-    }
+    };
 
     /**
      * Subclassing e variáveis globais
@@ -795,5 +789,4 @@
     window.$ep = window.Exile.plugins;
     window.$ep.ev = Plugin.prototype.ev;
 
-})
-    (window, window.jQuery);
+})(window, window.jQuery);
