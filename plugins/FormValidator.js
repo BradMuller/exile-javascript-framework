@@ -14,13 +14,13 @@
         var validator = this;
 
         // Inicializamos o controle sobre o formulário
-        this.form = $('form[name=' + name + ']')
+        this.form = $('form[name=' + name + ']');
         this.form.submit(function () {
             if (!validator.validate()) {
                 //    validator.renderErrors();
                 return false;
             }
-        })
+        });
 
         // Inicializa os atributos dos elementos
         // Eles são inicialmente decodificados do atributo 'validation-attr'
@@ -36,7 +36,7 @@
                 validator.validateElement(name);
                 validator.renderElementError(name, $(this));
             })
-        })
+        });
 
         if (serverResponse) {
             $(function () {
@@ -44,7 +44,7 @@
             })
         }
 
-    }
+    };
 
     /**
      * Funções do nosso validador
@@ -65,7 +65,7 @@
          */
         getElement:function (name, index) {
             if (index) {
-                var element = this.form.find(':input[name="' + name + '[' + index + ']"]')
+                var element = this.form.find(':input[name="' + name + '[' + index + ']"]');
                 if (element.size()) {
                     return element.eq(0);
                 }
@@ -84,7 +84,7 @@
          * @return bool Indica se não há erros
          */
         validate:function () {
-            this.clearErrors()
+            this.clearErrors();
             for (var element_name in this.attrs) {
                 this.validateElement(element_name);
             }
@@ -103,13 +103,13 @@
          * Valida um único elemento, através de seu nome.
          */
         validateElement:function (name) {
-            var element = this.getElement(name)
+            var element = this.getElement(name);
             if (element.size() && this.attrs[name]) {
                 this.clearErrors(name);
                 if (this.attrs[name]['notnull'] && !element.val()) {
                     this.addError(name, 'Preencha o campo!');
                 } else {
-                    var result = this.validations[this.attrs[name]['type']](element.val(), this.attrs[name], element)
+                    var result = this.validations[this.attrs[name]['type']](element.val(), this.attrs[name], element);
                     if (result) {
                         this.addError(name, result)
                     }
@@ -221,8 +221,9 @@
 
             // Copiamos os valores recebidos
             var values = response['values'];
-            var sessionErrors = []
-            for (var name in values) {
+            var name;
+            var sessionErrors = [];
+            for (name in values) {
                 if (values[name] instanceof Object) {
                     for (var key in values[name]) {
                         this.setElementValue(name, values[name][key], key)
@@ -233,8 +234,8 @@
             }
 
             // Erros alertados pelo servidor
-            var errors = response['errors']
-            for (var name in errors) {
+            var errors = response['errors'];
+            for (name in errors) {
                 // Se o nome do erro é um número, jogamos ele no erro genérico de sessão
                 //if (!isNaN(name)) {
                 //    $ep.SessionMessages('#session-messages', {error:[errors[name]]})
@@ -284,7 +285,7 @@
         parseAttributesString:function (str) {
             var type = str.split(' ', 1)[0];
             var definition = str.substring(type.length + 1);
-            var attrs = {}
+            var attrs = {};
             if (definition) {
                 var re = /([a-z0-9]+)(?:=((?:[^ ]|\\ )*))?/gi;
                 var match = null;
@@ -398,9 +399,9 @@
          * Exibe o estado de erro atual de um elemento
          */
         renderElementError:function (name, element) {
-            if (!element){
+            if (!element) {
                 element = name;
-                name  = element.attr('name');
+                name = element.attr('name');
             }
             if (element.attr('type') == 'hidden' || element.css('display') == 'none') {
                 return;
@@ -443,7 +444,7 @@
 
                 // Posicionamento avançado do descritor
                 element.addClass('validation-error').after(error_dom);
-                var position = element.attr('validation-error-pos')
+                var position = element.attr('validation-error-pos');
                 if (position == 'right') {
                     error_dom.css('top', element.offset().top).css('left', element.offset().left + element.width() + 3)
                 } else {
@@ -472,7 +473,7 @@
                 element.hide();
             }
         }
-    }
+    };
 
     /**
      * Expressão para decoficar atributos

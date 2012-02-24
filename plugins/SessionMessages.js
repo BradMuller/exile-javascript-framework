@@ -20,7 +20,7 @@
             }
         }
 
-    }
+    };
 
     $e.registerPlugin("SessionMessages", plugin)
 

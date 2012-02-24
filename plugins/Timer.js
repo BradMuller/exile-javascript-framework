@@ -74,7 +74,7 @@
             if (this.isActive() || !this.getTimeout()) {
                 return;
             }
-            this.dispatchEvent(this.ev.START)
+            this.dispatchEvent(this.ev.START);
             var _this = this;
             var callback = function () {
                 if (!_this.isActive()) {

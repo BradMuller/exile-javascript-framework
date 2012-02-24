@@ -7,7 +7,7 @@
     /**
      * Exibe uma lista de itens em um container.
      */
-    var plugin = function(debugContents, settings) {
+    var plugin = function (debugContents, settings) {
 
         //
         // Dependencies
@@ -23,8 +23,8 @@
         var _debugWindow;
         this.debugContents = Base64.decode(debugContents);
         this.settings = settings ? settings : {};
-        _expandable_divs = this.settings['expandable_divs'];
-        _expandable_ctrl_divs = [];
+        var _expandable_divs = this.settings['expandable_divs'];
+        var _expandable_ctrl_divs = [];
         var _this = this;
         //
         // Methods
@@ -32,9 +32,9 @@
 
         // inicia o mecanismo de divisões, para separar os conteúdos em partes expansíveis
         //
-        var _debugWindowSetup = function() {
+        var _debugWindowSetup = function () {
             var div, expand_ctrl_div = null;
-            for (index in _expandable_divs) {
+            for (var index in _expandable_divs) {
                 div = _debugWindow.document.getElementById(_expandable_divs[index]);
                 if (!div) continue;
                 // cria e insere um elemento para expandir/esconder as divs
@@ -46,9 +46,9 @@
                 expand_ctrl_div.expanded = true;
                 expand_ctrl_div.cookieName = 'cookie_' + _expandable_divs[index];
                 // atualiza o estado da div
-                expand_ctrl_div.childNodes[0].onclick = function() {
+                expand_ctrl_div.childNodes[0].onclick = function () {
                     // está visível
-                    if (this.parentNode.expanded == true) {
+                    if (this.parentNode.expanded) {
                         this.parentNode.expandable_div.style.display = 'none';
                         this.parentNode.expanded = false;
                         this.innerHTML = 'Expandir';
@@ -60,7 +60,7 @@
                         eraseCookie(this.parentNode.cookieName);
                     }
                     return false;
-                }
+                };
                 // verifica como estão as configurações de preferência
                 if (readCookie(expand_ctrl_div.cookieName))
                     expand_ctrl_div.childNodes[0].onclick();
@@ -69,14 +69,14 @@
                 _expandable_ctrl_divs.push(expand_ctrl_div);
                 div.parentNode.insertBefore(expand_ctrl_div, div);
             }
-        }
+        };
 
-        var _openDebugWindow = function() {
+        var _openDebugWindow = function () {
             _debugWindow = window.open("", "debug_window", "width=1200,height=800,scrollbars=1,resizable=1,modal=yes");
 
             // sempre fecha o debugger junto ao aplicativo
             $(window).unload(
-                function(e) {
+                function (e) {
                     _debugWindow.close();
                 }
             );
@@ -92,7 +92,7 @@
 
             // controle das hotkeys do debugger
             _debugWindow.onkeydown =
-                function(e) {
+                function (e) {
                     // F5 - recarrega a página sem POST, apenas GET
                     if (e.keyCode == 116) {
                         this.opener.location.reload();
@@ -105,7 +105,7 @@
                         this.opener.focus();
                     }
                 };
-        }
+        };
 
         //
         // Construction
@@ -113,7 +113,7 @@
 
         // focus ao debugger, apertando F4 na janela principal
         $(window).keydown(
-            function(e) {
+            function (e) {
                 // F4 - dá focus ao debugger
                 if (e.keyCode == 115) {
                     if (!_debugWindow || _debugWindow.closed) {
@@ -128,7 +128,7 @@
         if (_this.settings['focus']) {
             _openDebugWindow();
         }
-    }
+    };
 
 
     $e.registerPlugin("Debugger", plugin)

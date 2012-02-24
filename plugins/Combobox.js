@@ -86,9 +86,9 @@
             var _this = this;
             var li = $('<li value="' + value + '"><a>' + text + '</li>')
                 .click(function (ev) {
-                _this.setCurrentOption(this);
-                _this.hide();
-            });
+                    _this.setCurrentOption(this);
+                    _this.hide();
+                });
             this.optionsContainer.append(li);
             this.dispatchEvent(this.ev.ITEM_ADDED);
             if (this.getOptions().length == 1) {
@@ -136,7 +136,7 @@
          * Abre o dropdown
          */
         show:function () {
-            this.dropdownControl.toggleClass('active')
+            this.dropdownControl.toggleClass('active');
             var a = this.dropdownControl;
             this.optionsContainer.css('top', a.position().top + a.height()).css('margin-left', (a.offset().left - a.parent().offset().left)).width(a.width()).slideToggle('fast');
             this.dispatchEvent(this.ev.SHOWN)
@@ -150,7 +150,7 @@
             this.optionsContainer.slideUp('fast');
             this.dispatchEvent(this.ev.HIDDEN)
         }
-    }
+    };
 
     $e.registerPlugin("Combobox", plugin)
 

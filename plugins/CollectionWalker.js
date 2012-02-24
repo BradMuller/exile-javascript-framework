@@ -40,25 +40,25 @@
          */
         this.getCollection = function () {
             return collection;
-        }
+        };
         /**
          * Retorna o delay aplicado ao loop.
          */
         this.getDelay = function () {
             return delay;
-        }
+        };
         /**
          * Retorna o índice atual.
          */
         this.getIndex = function () {
             return index;
-        }
+        };
         /**
          * Retorna o item atual.
          */
         this.getItem = function () {
             return collection[index];
-        }
+        };
         /**
          * Configura o índice atual.
          * Se o índice é o mesmo que o atual, nada é feito.
@@ -76,7 +76,7 @@
                 window.clearTimeout(activeTimer);
                 activeTimer = window.setTimeout(__loopCallback, delay);
             }
-        }
+        };
         /**
          * Passa o loop para o próximo elemento.
          * Se o fim for atingido, o primeiro elemento
@@ -84,7 +84,7 @@
          */
         this.next = function () {
             this.setIndex((index + 1) % collection.length)
-        }
+        };
         /**
          * Passa o loop para o elemento anterior.
          * Se o elemento atual for o primeiro, o último elemento
@@ -96,13 +96,13 @@
             } else {
                 this.last()
             }
-        }
+        };
         /**
          * Passa o loop para o último elemento.
          */
         this.last = function () {
             this.setIndex(collection.length - 1)
-        }
+        };
         /**
          * Para o looper, cancelando qualquer loop iminente.
          */
@@ -113,7 +113,7 @@
             window.clearTimeout(activeTimer);
             state = this.states.STOPPED;
             this.dispatchEvent(this.ev.STOP)
-        }
+        };
         /**
          * Inicia o loop, que será rodado em 'delay'.
          */
@@ -122,24 +122,24 @@
             if (state == this.states.RESET) {
                 // O loop é iniciado
                 activeTimer = window.setTimeout(__loopCallback, delay);
-                this.dispatchEvent(this.ev.START)
+                this.dispatchEvent(this.ev.START);
                 state = this.states.RUNNING;
             }
             else if (state == this.states.STOPPED) {
                 // O loop é continuado
                 activeTimer = window.setTimeout(__loopCallback, delay);
-                this.dispatchEvent(this.ev.RESUME)
+                this.dispatchEvent(this.ev.RESUME);
                 state = this.states.RUNNING;
             }
-        }
+        };
         /**
          * Reseta o walker, fazendo com que ele pare.
          */
         this.reset = function () {
             window.clearTimeout(activeTimer);
-            state = this.states.RESET
+            state = this.states.RESET;
             index = 0;
-        }
+        };
 
         /**
          * Função acionada a cada loop.
@@ -151,18 +151,18 @@
                 return;
             }
             var lastIndex = index;
-            index = (index + 1) % collection.length
+            index = (index + 1) % collection.length;
             if (index != lastIndex) {
                 _this.dispatchEvent(_this.ev.INDEX_CHANGED)
             }
             if (index == 0) {
                 _this.dispatchEvent(_this.ev.END)
             }
-            _this.dispatchEvent(_this.ev.LOOP)
+            _this.dispatchEvent(_this.ev.LOOP);
             window.clearTimeout(activeTimer);
             activeTimer = window.setTimeout(__loopCallback, delay);
         }
-    }
+    };
 
     /**
      * Eventos
@@ -180,7 +180,7 @@
         LOOP:5,
         // O índice selecionado variou
         INDEX_CHANGED:6
-    }
+    };
 
     /**
      * Estados
@@ -189,7 +189,7 @@
         STOPPED:1,
         RUNNING:2,
         RESET:3
-    }
+    };
 
     $e.registerPlugin("CollectionWalker", plugin)
 })(window.Exile, window.jQuery);

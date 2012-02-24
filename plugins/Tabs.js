@@ -18,7 +18,7 @@
                 this.addTab(tabs[i])
             }
         }
-    }
+    };
 
     plugin.prototype = {
 
@@ -65,13 +65,13 @@
             if (tab.button) {
                 tab.button_clickHandler = function () {
                     _this.setActiveTab(tab)
-                }
+                };
                 tab.button_mouseOverHandler = function () {
                     $(tab.button).addClass(_this.config.css_button_hover)
-                }
+                };
                 tab.button_mouseOutHandler = function () {
                     $(tab.button).removeClass(_this.config.css_button_hover)
-                }
+                };
                 $(tab.button)
                     .click(tab.button_clickHandler)
                     .mouseover(tab.button_mouseOverHandler)
@@ -169,7 +169,7 @@
             $(tab.button).addClass(this.config.css_button_active).removeClass(this.config.css_button_inactive);
             $(tab.element).show();
         }
-    }
+    };
 
     $e.registerPlugin("Tabs", plugin)
 

@@ -11,11 +11,11 @@
 
         this.addEventListener([this.ev.WEEKLY_SCHEDULES_LOADED, this.ev.SCHEDULES_LOADED, this.ev.WEEK_CHANGE], function () {
             _this.refresh()
-        })
+        });
 
-        this.updateWeeklySchedule()
+        this.updateWeeklySchedule();
         this.init()
-    }
+    };
 
     plugin.prototype = {
 
@@ -62,8 +62,8 @@
                 this.e("Data inválida.")
             }
 
-            this.currentWeeksFirstDay = new Date(date.getTime() - 86400 * 1000 * date.getDay())
-            this.updateSchedule()
+            this.currentWeeksFirstDay = new Date(date.getTime() - 86400 * 1000 * date.getDay());
+            this.updateSchedule();
             this.dispatchEvent(this.ev.WEEK_CHANGE)
         },
 
@@ -71,8 +71,8 @@
          * Retorna as datas da semana dada
          */
         getWeekDates:function (weekdate) {
-            var first_day = new Date(weekdate.getTime() - 86400 * 1000 * weekdate.getDay())
-            var dates = [first_day]
+            var first_day = new Date(weekdate.getTime() - 86400 * 1000 * weekdate.getDay());
+            var dates = [first_day];
             for (var i = 1; i < 7; i++) {
                 dates.push(new Date(weekdate.getTime() + 86400 * 1000 * i))
             }
@@ -112,19 +112,19 @@
          * Retorna os horários para um dado dia, ordenados pelo horário.
          */
         getDateSchedules:function (date) {
-            var weekday = new Date(date.getTime() - 86400 * 1000 * date.getDay())
+            var weekday = new Date(date.getTime() - 86400 * 1000 * date.getDay());
 
-            var date_schedules = []
-            var weekly_schedules_defined = {}
-
+            var date_schedules = [];
+            var weekly_schedules_defined = {};
+            var i;
             // Adicionamos primeiramente as datas bem definidas
-            var schedules = this.schedules[weekday.toDateString()]
+            var schedules = this.schedules[weekday.toDateString()];
             if (schedules) {
-                var compare_date = date.getISODate()
-                for (var i = 0; i < schedules.length; i++) {
+                var compare_date = date.getISODate();
+                for (i = 0; i < schedules.length; i++) {
                     if (compare_date == schedules[i].horario.split(' ')[0]) {
-                        date_schedules.push(schedules[i])
-                        date_schedules.last().hora = schedules[i].horario.substr(11, 5)
+                        date_schedules.push(schedules[i]);
+                        date_schedules.last().hora = schedules[i].horario.substr(11, 5);
                         // Este é um horário semanal que já está bem definido
                         if (schedules[i].diaSemanal) {
                             weekly_schedules_defined[schedules[i].diaSemanal] = true;
@@ -136,7 +136,7 @@
 
             // E então os horários semanais
             var compare_day = date.getDay();
-            for (var i = 0; i < this.weeklySchedules.length; i++) {
+            for (i = 0; i < this.weeklySchedules.length; i++) {
                 if (this.weeklySchedules[i].dias) {
                     for (var j = 0; j < this.weeklySchedules[i].dias.length; j++) {
                         // É, de fato, o dia da semana que buscamos e não foi usado por um horário bem definido ainda
@@ -157,7 +157,7 @@
             // Ordenação
             date_schedules.sort(function (a, b) {
                 return a.hora > b.hora;
-            })
+            });
 
             return date_schedules;
         },
@@ -171,7 +171,7 @@
          */
         updateSchedule:function () {
             var _this = this;
-            var _week = this.currentWeeksFirstDay.toDateString()
+            var _week = this.currentWeeksFirstDay.toDateString();
             if (!_this.schedules[_week]) {
                 this.fetchSchedules(this.currentWeeksFirstDay, function (response) {
                     _this.schedules[_week] = response;
@@ -217,7 +217,7 @@
          */
         fetchSchedules:function (weekday, callback) {
             var dias = [];
-            var weekdates = this.getWeekDates(weekday)
+            var weekdates = this.getWeekDates(weekday);
             for (var i = 0; i < weekdates.length; i++) {
                 dias.push(weekdates[i].getDate() + '/' + (weekdates[i].getMonth() + 1) + '/' + weekdates[i].getFullYear())
             }
@@ -245,7 +245,7 @@
         }
 
 
-    }
+    };
 
     $e.registerPlugin("Agenda", plugin)
 

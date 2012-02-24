@@ -7,8 +7,8 @@
  */
 (function($e,$,undefined){
 
-    $e.requirePlugin("CollectionWalker")
-    $e.requirePlugin("ImageLoader")
+    $e.requirePlugin("CollectionWalker");
+    $e.requirePlugin("ImageLoader");
 
     /**
      * Cria uma instância do slideshow de imagens.
@@ -23,8 +23,7 @@
      */
     var plugin = function(conf){
 
-        var _conf = conf,
-            collection = conf.images,
+        var collection = conf.images,
             id = conf.appendTo,
             walker = new $e.plugins.CollectionWalker(
                 {
@@ -44,14 +43,14 @@
             "<div style='z-index:15' class=title>carregando</div>" +
             "<div class=images style='overflow:hidden;width:"+conf.width+"px;height:"+conf.height+"px;'></div>" +
             "<ul class=menu></ul>"
-        )
+        );
 
         /**
          * Popula o menu
          */
         for(var i=0;i<collection.length;i++){
             jq_slideshow.find(".menu").append("<ul class='disabled' index="+i+">"+$e.str_pad(i+1,2,"0",'STR_PAD_LEFT')+"</ul>");
-            jq_slideshow.find(".images").append("<img style='position:absolute' src='"+collection[i].url+"' width='"+conf.width+"' height='"+conf.height+"'>")
+            jq_slideshow.find(".images").append("<img style='position:absolute' src='" + collection[i].url + "' width='" + conf.width + "' height='" + conf.height + "'>");
             imageLoader.load(
                 collection[i].url,
                 function(e){
@@ -70,7 +69,8 @@
                 }
                 walker.setIndex($(this).attr('index'))
             }
-        )
+        );
+
         /**
          * O índice da imagem variou, ou seja, o canvas
          * deve variar também.
@@ -86,9 +86,9 @@
                 jq_slideshow.find(".images img").eq(lastIndex).fadeTo(conf.transition_delay,0)
             }
             jq_slideshow.find(".title").text(item.title);
-            jq_uls.removeClass("active").eq(w.getIndex()).addClass("active")
+            jq_uls.removeClass("active").eq(w.getIndex()).addClass("active");
             lastIndex = w.getIndex();
-        }
+        };
 
         walker.addEventListener(walker.ev.START,_walkerIndexChange_Callback);
         walker.addEventListener(walker.ev.INDEX_CHANGED,_walkerIndexChange_Callback);
@@ -99,6 +99,7 @@
         } else {
             imageLoader.addEventListener(imageLoader.ev.ONE_LOADED, function(e){if(imageLoader.getLoadedCount()==1)walker.run()})
         }
-    }
+    };
+
     $e.registerPlugin("ImageSlideshow",plugin)
 })(window.Exile, window.jQuery);

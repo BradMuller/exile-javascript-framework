@@ -23,14 +23,14 @@
          */
         this.getImages = function(){
             return images;
-        }
+        };
 
         /**
          * Retorna o total de imagens carregadas.
          */
         this.getLoadedCount = function(){
             return loadedImages.length;
-        }
+        };
 
         /**
          * Carrega um URL dado.
@@ -45,18 +45,18 @@
                 imageLoader: this,
                 img: img,
                 url: url
-            }
+            };
             img.onload = function(){
                 loadedImages.push(img);
                 if(onload)
-                    onload(event)
+                    onload(event);
                 _this.dispatchEvent(_this.ev.ONE_LOADED,event)
             };
             img.src = url;
             images.push(img)
         }
 
-    }
+    };
 
     /**
      * Eventos
@@ -66,7 +66,7 @@
         ONE_LOADED: 1,
         // Todas as imagens foram carregadas.
         ALL_LOADED: 2
-    }
+    };
 
     $e.registerPlugin("ImageLoader",plugin)
 })(window.Exile, window.jQuery);

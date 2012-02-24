@@ -73,7 +73,7 @@
         registerPlugin:function (name, object, parent) {
 
             if (this.plugins[name])
-                this.e("Plugin '" + name + "' has already been registered.")
+                this.e("Plugin '" + name + "' has already been registered.");
             if (parent && (typeof parent != "string")) {
                 this.e("Invalid subclass name.")
             }
@@ -543,7 +543,7 @@
             };
         })
 
-    }
+    };
 
     jQuery = {
 
@@ -563,7 +563,7 @@
                 }, function () {
                     _this.removeClass(cls)
                 })
-            })
+            });
             return this;
         },
         /**
@@ -573,7 +573,7 @@
             $(this).filter('img').attr('src', url)
         }
 
-    }
+    };
 
     /**
      * Customização de objetos nativos do JS
@@ -680,7 +680,7 @@
          */
         pushUnique:function (item) {
             if (!this.contains(item)) {
-                this.push(item)
+                this.push(item);
                 return true;
             }
             return false;

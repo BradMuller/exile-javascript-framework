@@ -13,7 +13,7 @@
             this.initElementEventHandlers();
         }
 
-    }
+    };
 
     plugin.prototype = {
 
@@ -134,7 +134,7 @@
             this.element.focus();
         }
 
-    }
+    };
 
     $e.registerPlugin("AjaxTextInput", plugin)
 

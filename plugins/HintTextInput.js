@@ -29,7 +29,7 @@
 
         $(input).blur();
        // $ep.HintTextInput.instances.push(this);
-    }
+    };
 
     $e.registerPlugin("HintTextInput", plugin)
 
